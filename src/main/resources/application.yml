@@ -1,0 +1,19 @@
+server:
+  port: ${PORT:4000}
+spring:
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/threadwork}
+    username: ${DB_USER:postgres}
+    password: ${DB_PASSWORD:password}
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: none          # the schema belongs to Flyway migrations (db/migration), never to Hibernate
+  flyway:
+    enabled: true
+app:
+  jwt-secret: ${JWT_SECRET:change-me-change-me-change-me-change-me-1234}
+  cors-origin: ${CORS_ORIGIN:http://localhost:5173}
+  ai-enabled: ${AI_ENABLED:false}
+  admin-email: ${ADMIN_EMAIL:}
+  admin-password: ${ADMIN_PASSWORD:}
