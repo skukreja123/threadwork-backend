@@ -15,6 +15,7 @@ public class CustomerOrder {
   @Column(name = "product_id") private UUID productId;
   @Column(name = "product_name", nullable = false) private String productName;
   @Column(name = "product_base", nullable = false) private String productBase;
+  @Column(name = "product_image_url") private String productImageUrl;
   @Column(nullable = false) private String color;
   @Column(nullable = false) private String sleeve;
   @Column(nullable = false) private String size;

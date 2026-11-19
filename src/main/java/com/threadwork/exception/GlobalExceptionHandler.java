@@ -6,6 +6,8 @@ import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
+import org.springframework.web.multipart.MaxUploadSizeExceededException;
+import org.springframework.web.multipart.support.MissingServletRequestPartException;
 import org.springframework.web.servlet.resource.NoResourceFoundException;
 import java.util.Map;
 @Slf4j @RestControllerAdvice
@@ -16,7 +18,8 @@ public class GlobalExceptionHandler {
     var f = e.getBindingResult().getFieldError();
     return body(HttpStatus.BAD_REQUEST, f == null ? "Invalid request" : f.getField() + ": " + f.getDefaultMessage());
   }
-  @ExceptionHandler({HttpMessageNotReadableException.class, MethodArgumentTypeMismatchException.class}) ResponseEntity<Map<String, String>> unreadable(Exception e) { return body(HttpStatus.BAD_REQUEST, "Invalid request"); }
+  @ExceptionHandler(MaxUploadSizeExceededException.class) ResponseEntity<Map<String, String>> tooBig(MaxUploadSizeExceededException e) { return body(HttpStatus.PAYLOAD_TOO_LARGE, "Image is too large (max 5 MB)"); }
+  @ExceptionHandler({HttpMessageNotReadableException.class, MethodArgumentTypeMismatchException.class, MissingServletRequestPartException.class}) ResponseEntity<Map<String, String>> unreadable(Exception e) { return body(HttpStatus.BAD_REQUEST, "Invalid request"); }
   @ExceptionHandler(DataIntegrityViolationException.class) ResponseEntity<Map<String, String>> conflict(DataIntegrityViolationException e) { log.warn("Data conflict", e); return body(HttpStatus.CONFLICT, "That data conflicts with existing records"); }
   @ExceptionHandler(NoResourceFoundException.class) ResponseEntity<Map<String, String>> notFound(NoResourceFoundException e) { return body(HttpStatus.NOT_FOUND, "Not found"); }
   @ExceptionHandler(Exception.class) ResponseEntity<Map<String, String>> other(Exception e) { log.error("Unhandled error", e); return body(HttpStatus.INTERNAL_SERVER_ERROR, "Server error"); }

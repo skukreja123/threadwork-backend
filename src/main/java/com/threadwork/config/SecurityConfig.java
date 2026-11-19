@@ -32,6 +32,7 @@ public class SecurityConfig {
         .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
         .requestMatchers("/api/auth/login", "/api/auth/signup").permitAll()   // public
         .requestMatchers(HttpMethod.GET, "/api/products").permitAll()         // public shop
+        .requestMatchers(HttpMethod.GET, "/uploads/**").permitAll()           // product photos
         .requestMatchers(HttpMethod.POST, "/api/messages").permitAll()        // contact form
         .requestMatchers("/api/admin/orders/**").hasAnyRole("STAFF", "ADMIN") // staff and admin
         .requestMatchers("/api/admin/**").hasRole("ADMIN")                    // admin only

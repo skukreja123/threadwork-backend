@@ -22,5 +22,8 @@ public class ProductService {
     p.setName(r.name().trim()); p.setSection(r.section()); p.setBase(r.base()); p.setPrice(r.price()); p.setColor(r.color());
     p.setSleeves(r.sleeves() && !r.base().equals("hoodie") && !r.base().equals("wtop"));   // hoodie and women's top have fixed sleeves
     p.setActive(r.active() == null || r.active());
+    String img = r.imageUrl() == null || r.imageUrl().isBlank() ? null : r.imageUrl().trim();
+    if (img != null && !img.startsWith("/uploads/")) throw new ApiException(HttpStatus.BAD_REQUEST, "Invalid image");   // only images uploaded through this API
+    p.setImageUrl(img);
   }
 }

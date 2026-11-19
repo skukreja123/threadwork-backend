@@ -15,5 +15,6 @@ public class Product {
   @Column(nullable = false) private String color;
   @Column(nullable = false) private boolean sleeves;
   @Column(nullable = false) private boolean active = true;
+  @Column(name = "image_url") private String imageUrl;   // e.g. /uploads/3f2c.jpg
   @Column(name = "created_at", insertable = false, updatable = false) private Instant createdAt;
 }

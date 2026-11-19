@@ -11,7 +11,12 @@ spring:
       ddl-auto: none          # the schema belongs to Flyway migrations (db/migration), never to Hibernate
   flyway:
     enabled: true
+  servlet:
+    multipart:
+      max-file-size: 5MB
+      max-request-size: 6MB
 app:
+  upload-dir: ${UPLOAD_DIR:uploads}
   jwt-secret: ${JWT_SECRET:change-me-change-me-change-me-change-me-1234}
   cors-origin: ${CORS_ORIGIN:http://localhost:5173}
   ai-enabled: ${AI_ENABLED:false}

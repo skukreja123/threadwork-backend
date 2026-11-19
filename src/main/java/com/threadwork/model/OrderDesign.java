@@ -16,4 +16,6 @@ public class OrderDesign {
   @Column(nullable = false) private float size;
   @Column(name = "image_url", nullable = false) private String imageUrl;
   @Column(name = "preview_url") private String previewUrl;
+  @Column(name = "photo_x") private Float photoX;
+  @Column(name = "photo_y") private Float photoY;
 }
